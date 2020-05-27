@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import { render } from "react-dom";
+import { ApolloProvider } from "@apollo/client";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+//import Planets from "./components/Planets";
+//import Search from "./components/Search";
+import PlanetSearch from "./components/PlanetSearch";
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: "https://pgfirst.herokuapp.com/v1/graphql",
+  }),
+});
+
+//cambiar <Search /><Planets /> por <PlanetSearch />
+const App = () => (
+  
+  <ApolloProvider client={client}>    
+    <PlanetSearch />    
+  </ApolloProvider>
+);
 
 export default App;
